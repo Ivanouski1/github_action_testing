@@ -2,7 +2,7 @@ name: test
 
 on:
   pull_request:
-    branches: [ master ] 
+    branches: [ main ] 
 
 env:
   BUILD_NUMBER: ${{ github.run_number }} # default variable GITHUB_RUN_NUMBER
