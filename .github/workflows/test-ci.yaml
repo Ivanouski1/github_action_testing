@@ -21,7 +21,7 @@ jobs:
         id: create_tag
         uses: jaywcjlove/create-tag-action@main
         with:
-          package-path: ./app/package.json
+          package-path: ./package.json
 
       - name: Print version  
         run: |
