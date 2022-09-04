@@ -27,15 +27,3 @@ jobs:
         with:
           tag_name: v.0.0.${{ github.run_number }}
           release_name: Release v.0.0.${{ github.run_number }}
-
-      - name: Upload APK preprod
-        uses: actions/upload-artifact@v2
-        with:
-          name: app-debug-${{ github.run_number }}.apk
-          path: ./app-debug-${{ github.run_number }}.apk
-        
-     - name: Upload APK preprod
-        uses: actions/upload-artifact@v2
-        with:
-          name: app-debug-${{ github.run_number }}.apk
-          path: ./app-release-v.0.0.${{ github.run_number }}.apk
