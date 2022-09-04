@@ -9,8 +9,9 @@ env:
 
 jobs:
   build:
-    name: Test Build 
+    name: Test build
     runs-on: ubuntu-latest
+
 
     steps:
       - name: Print BUILD_NUMBER-${{ env.BUILD_NUMBER }}
