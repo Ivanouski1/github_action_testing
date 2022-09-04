@@ -3,16 +3,13 @@ name: test
 on:
   pull_request:
     branches: [ main ] 
-
-  push:
-    branches: [ testing ]
-
+    
 env:
   BUILD_NUMBER: ${{ github.run_number }} # default variable GITHUB_RUN_NUMBER
 
 jobs:
   build:
-    name: Test Build Number
+    name: Test Build 
     runs-on: ubuntu-latest
 
     steps:
