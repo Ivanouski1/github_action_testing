@@ -3,6 +3,9 @@ name: test
 on:
   pull_request:
     branches: [ main ] 
+  push:
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0
     
 env:
   BUILD_NUMBER: ${{ github.run_number }} # default variable GITHUB_RUN_NUMBER
@@ -25,5 +28,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: v.0.0.${{ github.run_number }}
-          release_name: Release v.0.0.${{ github.run_number }}
+         #tag_name: v.0.0.${{ github.run_number }}
+         #release_name: Release v.0.0.${{ github.run_number }}
+          tag_name: ${{ github.ref }}.${{ env.BUILD_NUMBER }}
+          release_name: Release ${{ github.ref }}.${{ env.BUILD_NUMBER }}
+
+      - name: Print Release
+        run: echo "${{ github.ref }}.${{ env.BUILD_NUMBER }}"
+      
