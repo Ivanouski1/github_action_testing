@@ -1,8 +1,8 @@
 name: test
 
 on:
-  pull_request:
-    branches: [ main ] 
+  #pull_request:
+    #branches: [ main ] 
   push:
     tags:
       - 'v*' # Push events to matching v*, i.e. v1.0
@@ -35,4 +35,4 @@ jobs:
 
       - name: Print Release
         run: echo "${{ github.ref }}.${{ env.BUILD_NUMBER }}"
-      #blablabla
+      
