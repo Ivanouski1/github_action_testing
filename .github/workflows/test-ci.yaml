@@ -13,5 +13,5 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print BUILD_NUMBER
+      - name: Print BUILD_NUMBER-${{ env.BUILD_NUMBER }}
         run: echo "test-${{ env.BUILD_NUMBER }}.apk"
