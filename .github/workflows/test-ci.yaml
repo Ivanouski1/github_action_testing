@@ -16,6 +16,9 @@ jobs:
       - name: Print BUILD_NUMBER-${{ env.BUILD_NUMBER }}
         run: echo "test-${{ env.BUILD_NUMBER }}.apk"
 
+      
+      - uses: actions/checkout@testing
+
 
       - name: Create Tag
         id: create_tag
