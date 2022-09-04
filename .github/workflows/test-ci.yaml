@@ -23,15 +23,3 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           package-path: ./package.json
-
-      - name: Print version  
-        run: |
-          echo "version - ${{ steps.create_tag.outputs.version }}"
-          echo "version || preversion - ${{ steps.create_tag.outputs.version || steps.create_tag.outputs.preversion }}"
-          echo "versionNumber - ${{ steps.create_tag.outputs.versionNumber }}"
-          echo "versionNumber || preversionNumber - ${{ steps.create_tag.outputs.versionNumber || steps.create_tag.outputs.preversionNumber }}"
-          echo "majorVersion - ${{ steps.create_tag.outputs.majorVersion }}"
-          echo "minorVersion - ${{ steps.create_tag.outputs.minorVersion }}"
-          echo "patchVersion - ${{ steps.create_tag.outputs.patchVersion }}"
-          echo "preversion - ${{ steps.create_tag.outputs.preversion }}"
-          echo "successful - ${{ steps.create_tag.outputs.successful }}"
