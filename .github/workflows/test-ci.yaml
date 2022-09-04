@@ -4,6 +4,9 @@ on:
   pull_request:
     branches: [ main ] 
 
+  push:
+    branches: [ testing ]
+
 env:
   BUILD_NUMBER: ${{ github.run_number }} # default variable GITHUB_RUN_NUMBER
 
@@ -14,16 +17,27 @@ jobs:
 
     steps:
       - name: Print BUILD_NUMBER-${{ env.BUILD_NUMBER }}
-        run: echo "test-${{ env.BUILD_NUMBER }}.apk"
-
+        run: echo "BUILD_NUMBER-${{ env.BUILD_NUMBER }}.apk"
       
       - uses: actions/checkout@v3
-      - uses: technote-space/release-github-actions@v6
-
-
+      
       - name: Create Tag
-        id: create_tag
-        uses: jaywcjlove/create-tag-action@main
+        uses: actions/create-release@v1
+        id: create_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          test: '[R|r]elease[d]\s+[v|V]\d(\.\d+){0,2}'
+          tag_name: v.0.0.${{ github.run_number }}
+          release_name: Release v.0.0.${{ github.run_number }}
+
+      - name: Upload APK preprod
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-debug-${{ github.run_number }}.apk
+          path: ./app-debug-${{ github.run_number }}.apk
+        
+     - name: Upload APK preprod
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-debug-${{ github.run_number }}.apk
+          path: ./app-release-v.0.0.${{ github.run_number }}.apk
