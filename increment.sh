@@ -7,8 +7,12 @@ BUILD_NUMBER=$((BUILD_NUMBER+1))
 #replace build number in the file
 REPLACE=$((BUILD_NUMBER-1))
 sed -i "s/BUILD_VERSION=$REPLACE/BUILD_VERSION=$BUILD_NUMBER/g" ./app/version.properties
+
+echo "Release v$MAJOR_VERSION.$MINOR_VERSION.$BUILD_NUMBER" 
+
 #Add var in git env
+#echo "{environment_variable_name}={value}" >> $GITHUB_ENV
 echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
 echo "MINOR_VERSION=$MINOR_VERSION" >> $GITHUB_ENV
 echo "MAJOR_VERSION=$MAJOR_VERSION" >> $GITHUB_ENV
-echo "Release v${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}"  
+ 
