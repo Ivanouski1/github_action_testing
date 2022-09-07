@@ -32,7 +32,7 @@ jobs:
           release_name: Release v${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}
 
 
-      - run: mkdir -p /artifact
+      - run: sudo mkdir -p /artifact
 
       - run: echo hello > /artifact/test.txt
 
