@@ -21,8 +21,20 @@ jobs:
         run: ./increment.sh
         shell: bash
       
+      - name: create arifact
+        run: |
+          mkdir -p /home/artifact
+          echo "hello" > /home/artifact/test.txt
 
-              
+      - name: Rename artifacts
+        run: |
+          mv /home/artifact/test.txt /home/artifact/test-{{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: /home/artifact/test-{{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
+
       - name: Create Release Tag
         uses: actions/create-release@v1
         env:
@@ -30,18 +42,6 @@ jobs:
         with:
           tag_name: v${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}
           release_name: Release v${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}
-
-
-      - run: mkdir -p /home/artifact
-
-      - run: echo hello > /home/artifact/test.txt
-
-      - run: mv /home/artifact/test.txt /home/artifact/test-{{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: my-artifact
-          path: /home/artifact/test-{{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
 
 
       - name: Commit files
