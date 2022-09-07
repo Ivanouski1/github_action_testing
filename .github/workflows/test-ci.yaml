@@ -1,8 +1,8 @@
 name: test
 
 on:
-  pull_request:
-    branches: [ main ] 
+  push:
+    branches: [ testing ] 
     
 #env:
   #BUILD_NUMBER: ${{ github.run_number }} 
