@@ -32,16 +32,16 @@ jobs:
           release_name: Release v${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}
 
 
-      - run: sudo mkdir -p /artifact
+      - run: mkdir -p /home/artifact
 
-      - run: sudo echo hello > /artifact/test.txt
+      - run: echo hello > /home/artifact/test.txt
 
-      - run: mv /artifact/test.txt /artifact/test-{{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
+      - run: mv /home/artifact/test.txt /home/artifact/test-{{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
 
       - uses: actions/upload-artifact@v3
         with:
           name: my-artifact
-          path: /artifact/test-{{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
+          path: /home/artifact/test-{{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
 
 
       - name: Commit files
