@@ -32,6 +32,18 @@ jobs:
           release_name: Release v${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}
 
 
+      - run: mkdir -p /artifact
+
+      - run: echo hello > /artifact/test.txt
+
+      - run: mv /artifact/test.txt /artifact/test-{{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: /artifact/test-{{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
+
+
       - name: Commit files
         run: |
           git config --local user.email "Andrei_Ivanouski1@epam.com"
