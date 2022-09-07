@@ -9,3 +9,4 @@ echo "Release v = $MAJOR_VERSION.$MINOR_VERSION.$BUILD_NUMBER"
 #replace build number in the file
 REPLACE=$((BUILD_NUMBER-1))
 sed -i "s/BUILD_VERSION=$REPLACE/BUILD_VERSION=$BUILD_NUMBER/g" ./app/version.properties
+###
