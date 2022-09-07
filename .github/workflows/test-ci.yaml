@@ -27,7 +27,7 @@ jobs:
 
       - name: Rename artifacts
         run: |
-          mv ./app/test.txt ./app/artifact/test-{{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
+          mv ./app/test.txt ./app/test-{{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
 
       - uses: actions/upload-artifact@v3
         with:
