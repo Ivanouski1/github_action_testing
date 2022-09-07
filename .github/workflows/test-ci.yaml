@@ -23,17 +23,16 @@ jobs:
       
       - name: create arifact
         run: |
-          mkdir -p /home/artifact
-          echo "hello" > /home/artifact/test.txt
+          echo "hello" >> ./app/test.txt
 
       - name: Rename artifacts
         run: |
-          mv /home/artifact/test.txt /home/artifact/test-{{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
+          mv ./app/test.txt ./app/artifact/test-{{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
 
       - uses: actions/upload-artifact@v3
         with:
           name: my-artifact
-          path: /home/artifact/test-{{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
+          path: ./app/test-{{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
 
       - name: Create Release Tag
         uses: actions/create-release@v1
