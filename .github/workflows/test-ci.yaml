@@ -31,8 +31,8 @@ jobs:
 
       - name: Commit files
         run: |
-          #git config --local user.email "egorikftp@gmail.com"
-          #git config --local user.name "egorikftp"
+          git config --local user.email "Andrei_Ivanouski1@epam.com"
+          git config --local user.name "Ivanouski1"
           git commit -m "Increment build version" -a
 
       - name: Push changes
