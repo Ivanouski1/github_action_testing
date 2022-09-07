@@ -21,14 +21,13 @@ jobs:
         run: ./increment.sh
         shell: bash
       
-      - name:
-        run: echo $BUILD_NUMBER
+
               
- #     - name: Create Release Tag
- #       uses: actions/create-release@v1
- #       with:
- #         tag_name: v${{ MAJOR_VERSION }}.${{ MINOR_VERSION }}.${{ BUILD_NUMBER" }}
- #         release_name: Release v${{ MAJOR_VERSION }}.${{ MINOR_VERSION }}.${{ BUILD_NUMBER" }}
+      - name: Create Release Tag
+        uses: actions/create-release@v1
+        with:
+          tag_name: v${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER" }}
+          release_name: Release v${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER" }}
 
 
       - name: Commit files
