@@ -45,7 +45,7 @@ jobs:
       - name: Attach artefact to the release 
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "release.tar.gz,foo/*.txt"
+          artifacts: ./app/test-${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
           tag: v${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}
           token: ${{ secrets.YOUR_GITHUB_TOKEN }}
 
