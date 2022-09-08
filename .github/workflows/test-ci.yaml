@@ -42,7 +42,7 @@ jobs:
           tag_name: v${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}
           release_name: Release v${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}
 
-       - name: Attach artefact to the release 
+      - name: Attach artefact to the release 
         uses: ncipollo/release-action@v1
         with:
           artifacts: "release.tar.gz,foo/*.txt"
