@@ -4,6 +4,8 @@ on:
   push:
     branches: [ testing ] 
      
+env:
+  GH_PAT: ${{ secrets.GH_PAT }}
 
 jobs:
   build:
