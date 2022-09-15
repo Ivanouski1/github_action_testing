@@ -15,11 +15,13 @@ jobs:
       - name: Checkout public repo
         uses: actions/checkout@v3
 
-      - name: Checkout folder from private repo
+      - name: Checkout private tools
         uses: actions/checkout@v3
         with:
-          repository: my-org/my-tools
-          path: my-tools
+          repository: Ivanouski1/github_action_testing
+          ref: main
+          token: ${{ secrets.GH_PAT }} # `GH_PAT` is a secret that contains your PAT
+          path: folder/
           
       - name: Increment build number and ouput release
         run: ./increment.sh
@@ -67,4 +69,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
 
-###
