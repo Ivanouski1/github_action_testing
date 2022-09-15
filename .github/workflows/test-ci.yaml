@@ -20,7 +20,7 @@ jobs:
         with:
           repository: Ivanouski1/github_action_testing
           ref: main
-          token: ${{ secrets.GH_PAT }} # `GH_PAT` is a secret that contains your PAT
+          token: ${{ secrets.GITHUB_TOKEN }}
           path: folder/
           
       - name: Increment build number and ouput release
