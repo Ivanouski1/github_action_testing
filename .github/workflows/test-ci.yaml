@@ -3,9 +3,7 @@ name: test
 on:
   push:
     branches: [ testing ] 
-    
-#env:
-  #BUILD_NUMBER: ${{ github.run_number }} 
+     
 
 jobs:
   build:
@@ -14,9 +12,15 @@ jobs:
 
 
     steps:
+      - name: Checkout public repo
+        uses: actions/checkout@v3
 
-      - uses: actions/checkout@v3
-
+      - name: Checkout folder from private repo
+        uses: actions/checkout@v3
+        with:
+          repository: my-org/my-tools
+          path: my-tools
+          
       - name: Increment build number and ouput release
         run: ./increment.sh
         shell: bash
