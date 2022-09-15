@@ -21,24 +21,29 @@ jobs:
         run: |
           ls 
 
-      - name: Checkout folder from private repo
+      - name: Checkout amplifyconfiguration.json
         uses: actions/checkout@v3
         with:
           repository: Ivanouski1/github_action_test
           token: ${{ secrets.GH_PAT }} # `GH_PAT` is a secret that contains your PAT
           path: github_action_test/android-keystore/amplify-keys/raw/test1.json
           
-      - name: ls after private repo
-        run: |
-          ls ./github_action_test/android-keystore/amplify-keys
-          ls ./github_action_test/android-keystore/amplify-keys/raw
+      - name: Checkout awsconfiguration.json
+        uses: actions/checkout@v3
+        with:
+          repository: Ivanouski1/github_action_test
+          token: ${{ secrets.GH_PAT }} # `GH_PAT` is a secret that contains your PAT
+          path: github_action_test/android-keystore/amplify-keys/raw/test2.json
           
-     # - name: Copy amplify config files
-      #  run: |
-       #   cat ./github_action_test/android-keystore/amplify-keys/raw/test1.json >> ./app/test1.txt
-        #  cat ./github_action_test/android-keystore/amplify-keys/raw/test2.json >> ./app/test2.txt
-         # cat ./app/test1.txt
-          #cat ./app/test2.txt
+      - name: ls after private repo (Copy amplify config files)
+        run: |
+          ls ./github_action_test/android-keystore/amplify-keys/raw
+          cat ./github_action_test/android-keystore/amplify-keys/raw/test1.json >> ./app/file1.txt
+          cat ./github_action_test/android-keystore/amplify-keys/raw/test2.json >> ./app/file2.txt
+          cat ./app/file1.txt 
+          cat ./app/file2.txt
+          
+
          
  
 
