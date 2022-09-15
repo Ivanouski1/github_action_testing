@@ -18,7 +18,7 @@ jobs:
       - name: Checkout folder from private repo
         uses: actions/checkout@v3
         with:
-          repository: github_action_test
+          repository: Ivanouski1/github_action_test
           ref: main
           token: ${{ secrets.GITHUB_TOKEN }}
           path: folder/
