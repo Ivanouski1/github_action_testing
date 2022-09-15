@@ -21,7 +21,6 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: Ivanouski1/github_action_test
-          ref: main
           token: ${{ secrets.GH_PAT }} # `GH_PAT` is a secret that contains your PAT
           path: android-keystore/amplify-keys/raw/*
           
