@@ -26,15 +26,15 @@ jobs:
         with:
           repository: Ivanouski1/github_action_test
           token: ${{ secrets.GH_PAT }} # `GH_PAT` is a secret that contains your PAT
-          path: amplify-keys
+          path: android-keystore
           
           
       - name: ls after private repo (Copy amplify config files)
         run: |
           echo "ls"
           ls 
-          echo "ls amplify-keys"
-          ls amplify-keys
+          echo "ls android-keystore "
+          ls android-keystore
           
 
          
