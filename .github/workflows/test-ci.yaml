@@ -16,6 +16,10 @@ jobs:
     steps:
       - name: Checkout public repo
         uses: actions/checkout@v3
+        
+      - name: ls public repo
+        run: |
+          ls 
 
       - name: Checkout folder from private repo
         uses: actions/checkout@v3
@@ -24,12 +28,16 @@ jobs:
           token: ${{ secrets.GH_PAT }} # `GH_PAT` is a secret that contains your PAT
           path: github_action_test/android-keystore/amplify-keys/raw/
           
-      - name: Copy amplify config files
+      - name: ls after private repo
         run: |
-          cat ./github_action_test/android-keystore/amplify-keys/raw/test1.json >> ./app/test1.txt
-          cat ./github_action_test/android-keystore/amplify-keys/raw/test2.json >> ./app/test2.txt
-          cat ./app/test1.txt
-          cat ./app/test2.txt
+          ls 
+          
+     # - name: Copy amplify config files
+      #  run: |
+       #   cat ./github_action_test/android-keystore/amplify-keys/raw/test1.json >> ./app/test1.txt
+        #  cat ./github_action_test/android-keystore/amplify-keys/raw/test2.json >> ./app/test2.txt
+         # cat ./app/test1.txt
+          #cat ./app/test2.txt
           
       - name: Increment build number and ouput release
         run: ./increment.sh
