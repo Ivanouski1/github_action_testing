@@ -32,7 +32,7 @@ jobs:
         run: |
           ls
           ls ./github_action_test
-          ls ./github_action_test/android-keystore/amplify-keys/raw/
+          ls ./github_action_test/android-keystore
           
      # - name: Copy amplify config files
       #  run: |
