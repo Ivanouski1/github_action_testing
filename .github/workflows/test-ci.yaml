@@ -22,15 +22,15 @@ jobs:
         with:
           repository: Ivanouski1/github_action_test
           token: ${{ secrets.GH_PAT }} # `GH_PAT` is a secret that contains your PAT
-          path: android-keystore/amplify-keys/raw/*
+          path: github_action_test
           
       - name: Copy amplify config files
         run: |
           ls android-keystore/amplify-keys/raw/
-          cat android-keystore/amplify-keys/raw/test1.json >> ./app/test1.txt
-          cat android-keystore/amplify-keys/raw/test2.json >> ./app/test2.txt
-          cat app/test1.txt
-          cat app/test2.txt
+          cat ./android-keystore/amplify-keys/raw/test1.json >> ./app/test1.txt
+          cat ./android-keystore/amplify-keys/raw/test2.json >> ./app/test2.txt
+          cat ./app/test1.txt
+          cat ./app/test2.txt
           
       - name: Increment build number and ouput release
         run: ./increment.sh
