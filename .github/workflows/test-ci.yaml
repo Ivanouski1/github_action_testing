@@ -23,7 +23,12 @@ jobs:
           repository: Ivanouski1/github_action_test
           ref: main
           token: ${{ secrets.GH_PAT }} # `GH_PAT` is a secret that contains your PAT
-          path: folder/
+          path: android-keystore/amplify-keys/raw/
+          
+      - name: Copy amplify config files
+        run: |
+          cat android-keystore/amplify-keys/raw/test1.json >> app/src/main/res/raw/amplifyconfiguration.json
+          cat android-keystore/amplify-keys/raw/test2.json >> app/src/main/res/raw/awsconfiguration.json
           
       - name: Increment build number and ouput release
         run: ./increment.sh
@@ -42,13 +47,6 @@ jobs:
           name: test-${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
           path: ./app/test-${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
 
-#      - name: Create Release Tag
-#        uses: actions/create-release@v1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          tag_name: v${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}
-#          release_name: Release v${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}
 
       - name: Create release Tag
         uses: ncipollo/release-action@v1
