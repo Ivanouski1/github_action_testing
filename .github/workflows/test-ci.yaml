@@ -21,11 +21,11 @@ jobs:
         run: |
           ls 
 
-      - name: Checkout amplifyconfiguration.json
+      - name: Add "android-keystore" repo
         uses: actions/checkout@v3
         with:
           repository: Ivanouski1/github_action_test
-          token: ${{ secrets.GH_PAT }} # `GH_PAT` is a secret that contains your PAT
+          token: ${{ secrets.GH_PAT }} # GH_PAT=Personal_Acces_Token (scope repo)
           path: android-keystore
           
           
@@ -35,7 +35,10 @@ jobs:
           ls 
           echo "ls full path "
           ls android-keystore/amplify-keys/raw
-          
+          cat android-keystore/amplify-keys/raw/test1.json >> app/file1.txt
+          cat android-keystore/amplify-keys/raw/test1.json >> app/file2.txt
+          cat app/file1.txt
+          cat app/file2.txt
 
          
  
