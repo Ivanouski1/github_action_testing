@@ -22,7 +22,7 @@ jobs:
         with:
           repository: Ivanouski1/github_action_test
           token: ${{ secrets.GH_PAT }} # `GH_PAT` is a secret that contains your PAT
-          path: github_action_test/github_action_test/android-keystore/amplify-keys/raw/
+          path: github_action_test/android-keystore/amplify-keys/raw/
           
       - name: Copy amplify config files
         run: |
