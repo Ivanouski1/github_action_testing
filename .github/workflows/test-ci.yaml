@@ -4,9 +4,6 @@ on:
   push:
     branches: [ testing ] 
      
-env:
-  GH_PAT: ${{ secrets.GH_PAT }}
-  KEY_STORE_REPOSITORY: ${{ secrets.KEY_STORE_REPOSITORY}}
 
 jobs:
   build:
@@ -25,7 +22,7 @@ jobs:
       - name: Add "android-keystore" repo
         uses: actions/checkout@v3
         with:
-          repository: $KEY_STORE_REPOSITORY
+          repository: ${{ secrets.KEY_STORE_REPOSITORY}}
           token: ${{ secrets.GH_PAT }} # GH_PAT=Personal_Acces_Token (scope repo)
           path: android-keystore
           
