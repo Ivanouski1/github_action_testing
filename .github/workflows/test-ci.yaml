@@ -7,7 +7,7 @@ on:
 
   workflow_dispatch:
   
-concurrency: ci-${{ github.ref }
+concurrency: staging_environment
 
 jobs:
   build:
