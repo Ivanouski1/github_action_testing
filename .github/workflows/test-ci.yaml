@@ -6,10 +6,8 @@ on:
     branches: [ testing ] 
 
   workflow_dispatch:
-
-concurrency: 
-  group: ${{ github.ref }}
-  cancel-in-progress: true
+  
+concurrency: ci-${{ github.ref }
 
 jobs:
   build:
