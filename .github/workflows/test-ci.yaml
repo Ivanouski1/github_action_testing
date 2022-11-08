@@ -1,14 +1,17 @@
 name: test
 
-concurrency: 
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 on:
   push:
     branches: [ testing ] 
+  pull_request:
+    branches: [ main ]
 
   workflow_dispatch:
+  
+concurrency: 
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
      
 
 jobs:
