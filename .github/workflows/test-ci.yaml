@@ -1,0 +1,78 @@
+name: test
+
+concurrency: 
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [ testing ] 
+     
+
+jobs:
+  build:
+    name: Test build
+    runs-on: ubuntu-latest
+
+
+    steps:
+      - name: Checkout public repo
+        uses: actions/checkout@v3
+        
+      - name: ls public repo
+        run: |
+          ls 
+
+      - name: Add "android-keystore" repo
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ secrets.KEY_STORE_REPOSITORY}}
+          token: ${{ secrets.GH_PAT }} # GH_PAT=Personal_Acces_Token (scope repo)
+          path: android-keystore
+          
+          
+      - name: ls after private repo (Copy amplify config files)
+        run: |
+          cat android-keystore/amplify-keys/raw/test1.json >> app/file1.txt
+          cat android-keystore/amplify-keys/raw/test2.json >> app/file2.txt
+          cat app/file1.txt
+          cat app/file2.txt
+          
+      - name: Increment build number and ouput release
+        run: ./increment.sh
+        shell: bash
+      
+      - name: create arifact
+        run: |
+          echo "hello" >> ./app/test.txt
+
+      - name: Rename artifacts
+        run: |
+          mv ./app/test.txt ./app/test-${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: test-${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
+          path: ./app/test-${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
+
+      - name: Commit files
+        run: |
+          git config --local user.email "Andrei_Ivanouski1@epam.com"
+          git config --local user.name "Ivanouski1"
+          git commit -m "Increment build version" -a
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
+      - name: Create release Tag
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: ./app/test-${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
+          tag: v${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}
+          name: Release v${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+ 
+
