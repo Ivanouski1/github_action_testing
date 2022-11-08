@@ -4,6 +4,8 @@ name: test
 on:
   push:
     branches: [ testing ] 
+  pull_request:
+    branches: [ main ]
 
   workflow_dispatch:
   
