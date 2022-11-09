@@ -1,6 +1,6 @@
 name: test
 
-#testquerly3
+#test1
 on:
   push:
     branches: [ main ] 
