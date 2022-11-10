@@ -23,7 +23,7 @@ Save the data to AWS DynamoDB, then get response the data from web interface.
 
 Register on openweathermap.org, get API Key. 
 After receiving the key check access. The query link should be something like this:
-http://api.openweathermap.org/data/2.5/find?q=Minsk&type=like&APPID=API_key
+http://api.openweathermap.org/data/2.5/find?q=Minsk&type=like&APPID=API_key;
 http://api.openweathermap.org/data/2.5/weather?q=Minsk&type=like&APPID=API_key
 
 
