@@ -23,7 +23,7 @@ Save the data to AWS DynamoDB, then get response the data from web interface.
 
 Register on openweathermap.org, get API Key. 
 After receiving the key check access. The query link should be something like this:
-http://api.openweathermap.org/data/2.5/find?q=Minsk&type=like&APPID=API_key;
+http://api.openweathermap.org/data/2.5/find?q=Minsk&type=like&APPID=API_key
 http://api.openweathermap.org/data/2.5/weather?q=Minsk&type=like&APPID=API_key
 
 
@@ -44,11 +44,11 @@ http://api.openweathermap.org/data/2.5/weather?q=Minsk&type=like&APPID=API_key
         - Protocol policy: Redirect HTTP to HTTPS
         - Allowed HTTP methods: GET, HEAD
 -  Modify HTML file: Functionality - gets json request in a following format:
-                          - {
-                             "City":"$CITY",
-                             "Date":"$DATE",
-                             "TempFormat":"$TEMPFORMAT"
-                            }
+  - {
+     "City":"$CITY",
+      "Date":"$DATE",
+       "TempFormat":"$TEMPFORMAT"
+    }
 - upload file to s3 bucket: scripts/weather.html
 - verify access: $CLOUDFRONT_DOMAIN_NAME/weather.html
 
@@ -59,11 +59,11 @@ http://api.openweathermap.org/data/2.5/weather?q=Minsk&type=like&APPID=API_key
 - Create IAM role for lambda
 - Attach next policies to role: "Allow create Events in Cloudwatch Events", "Allow create Logs in Cloudwatch", "AmazonDynamoDBFullAccess"
 - Add Function URL:
-    - Auth type: NONE
-    - Configure CORS:
-                - Allow origin: *
-                - Allow methods: *
-                - Allow headers: content-type
+      - Auth type: NONE
+      - Configure CORS:
+      - Allow origin: *
+      - Allow methods: *
+      - Allow headers: content-type
                 - Allow credentials: false
 - example IaC to deploy lambda: lambda.tf
 
@@ -71,7 +71,7 @@ http://api.openweathermap.org/data/2.5/weather?q=Minsk&type=like&APPID=API_key
 
  - Ready template: scripts/weather.py
  - Modify the script: 
-             - Should check for "time" data existence in DynamoDB, write if not existent or outdated, else return data
+      - Should check for "time" data existence in DynamoDB, write if not existent or outdated, else return data
  ## Verification: $CLOUDFRONT_DOMAIN_NAME/weather.html
 - Get extract data from DynamoDB
 
