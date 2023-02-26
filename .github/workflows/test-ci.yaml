@@ -48,7 +48,9 @@ jobs:
 
           
       - name: Increment build number and ouput release
-        run: ./increment.sh
+        run: | 
+          ./increment.sh
+          echo BUILD_ENV=DEV" >> $GITHUB_ENV
         shell: bash
       
       - name: create arifact
