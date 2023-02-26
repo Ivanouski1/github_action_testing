@@ -50,8 +50,7 @@ jobs:
       - name: Increment build number and ouput release
         run: | 
           ./increment.sh
-          echo "BUILD_ENV=DEV" >> $GITHUB_ENV
-          echo "BUILD_ENV=TEST" >> $GITHUB_ENV
+          echo MAJOR_VERSION=dev.${{ env.MAJOR_VERSION }} >> $GITHUB_ENV # variable redefinition for dev build 
  
       
       - name: create arifact
