@@ -1,105 +1,105 @@
-name: test
+# name: test
 
-#test2
-on:
-  push:
-    branches: [ main ] 
-  #pull_request:
-    #branches: [ main ]
+# #test2
+# on:
+#   push:
+#     branches: [ main ] 
+#   #pull_request:
+#     #branches: [ main ]
 
-  workflow_dispatch:
+#   workflow_dispatch:
   
-concurrency: 
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+# concurrency: 
+#   group: ${{ github.workflow }}-${{ github.ref }}
+#   cancel-in-progress: true
 
-jobs:
-  build:
-    name: Test build
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     name: Test build
+#     runs-on: ubuntu-latest
 
 
-    steps:
-      - name: Checkout public repo
-        uses: actions/checkout@v3
+#     steps:
+#       - name: Checkout public repo
+#         uses: actions/checkout@v3
         
-      - name: ls public repo
-        run: |
-          ls 
+#       - name: ls public repo
+#         run: |
+#           ls 
 
-      - name: Add "android-keystore" repo
-        uses: actions/checkout@v3
-        with:
-          repository: ${{ secrets.KEY_STORE_REPOSITORY}}
-          token: ${{ secrets.GH_PAT }} # GH_PAT=Personal_Acces_Token (scope repo)
-          path: android-keystore
+#       - name: Add "android-keystore" repo
+#         uses: actions/checkout@v3
+#         with:
+#           repository: ${{ secrets.KEY_STORE_REPOSITORY}}
+#           token: ${{ secrets.GH_PAT }} # GH_PAT=Personal_Acces_Token (scope repo)
+#           path: android-keystore
           
           
-      - name: ls after private repo (Copy amplify config files)
-        run: |
-          cat android-keystore/amplify-keys/dev/raw/test1.json >> app/file1.txt
-          cat android-keystore/amplify-keys/dev/raw/test2.json >> app/file2.txt
-          cat android-keystore/amplify-keys/test/raw/test3.json >> app/file3.txt
-          cat android-keystore/amplify-keys/test/raw/test4.json >> app/file4.txt
-          cat app/file1.txt
-          cat app/file2.txt
-          cat app/file3.txt
-          cat app/file4.txt
+#       - name: ls after private repo (Copy amplify config files)
+#         run: |
+#           cat android-keystore/amplify-keys/dev/raw/test1.json >> app/file1.txt
+#           cat android-keystore/amplify-keys/dev/raw/test2.json >> app/file2.txt
+#           cat android-keystore/amplify-keys/test/raw/test3.json >> app/file3.txt
+#           cat android-keystore/amplify-keys/test/raw/test4.json >> app/file4.txt
+#           cat app/file1.txt
+#           cat app/file2.txt
+#           cat app/file3.txt
+#           cat app/file4.txt
 
           
-      - name: Increment build number and ouput release
-        run: | 
-          ./increment.sh
-          echo MAJOR_VERSION=dev.${{ env.MAJOR_VERSION }} >> $GITHUB_ENV # variable redefinition for dev build 
+#       - name: Increment build number and ouput release
+#         run: | 
+#           ./increment.sh
+#           echo MAJOR_VERSION=dev.${{ env.MAJOR_VERSION }} >> $GITHUB_ENV # variable redefinition for dev build 
  
       
-      - name: create arifact
-        run: |
-          echo "hello" >> ./app/dev.txt
-          echo "hello" >> ./app/test.txt
+#       - name: create arifact
+#         run: |
+#           echo "hello" >> ./app/dev.txt
+#           echo "hello" >> ./app/test.txt
 
-      - name: Rename artifacts
-        run: |
-          mv ./app/test.txt ./app/test.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
-          mv ./app/dev.txt ./app/dev.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
+#       - name: Rename artifacts
+#         run: |
+#           mv ./app/test.txt ./app/test.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
+#           mv ./app/dev.txt ./app/dev.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
 
-      - name: Upload test art
-        uses: actions/upload-artifact@v3
-        with:
-          name: test.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
-          path: ./app/test.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
+#       - name: Upload test art
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: test.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
+#           path: ./app/test.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
 
-      - name: Upload rev art
-        uses: actions/upload-artifact@v3
-        with:
-          name: dev.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
-          path: ./app/dev.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
+#       - name: Upload rev art
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: dev.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
+#           path: ./app/dev.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
 
-      - name: Commit files
-        run: |
-          git config --local user.email "Andrei_Ivanouski1@epam.com"
-          git config --local user.name "Ivanouski1"
-          git commit -m "Increment build version" -a
+#       - name: Commit files
+#         run: |
+#           git config --local user.email "Andrei_Ivanouski1@epam.com"
+#           git config --local user.name "Ivanouski1"
+#           git commit -m "Increment build version" -a
 
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+#       - name: Push changes
+#         uses: ad-m/github-push-action@master
+#         with:
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
+#           branch: ${{ github.ref }}
 
-      - name: Create release Tag dev
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: ./app/dev.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
-          tag: dev.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}
-          name: Release dev.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+#       - name: Create release Tag dev
+#         uses: ncipollo/release-action@v1
+#         with:
+#           artifacts: ./app/dev.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
+#           tag: dev.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}
+#           name: Release dev.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}
+#           token: ${{ secrets.GITHUB_TOKEN }}
  
-      - name: Create release Tag test
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: ./app/test.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
-          tag: test.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}
-          name: Release test.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+#       - name: Create release Tag test
+#         uses: ncipollo/release-action@v1
+#         with:
+#           artifacts: ./app/test.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}.txt
+#           tag: test.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}
+#           name: Release test.${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.BUILD_NUMBER }}
+#           token: ${{ secrets.GITHUB_TOKEN }}
 
