@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - name: ls public repo
+    - name: echo
       run: |
         echo ${{ vars.PROJECT_GIT_LAB_URL }}
         echo ${{ vars.PROJECT_GIT_LAB_ID }}
