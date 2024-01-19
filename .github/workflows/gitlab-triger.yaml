@@ -10,6 +10,9 @@ jobs:
       run: |
         echo ${{ vars.PROJECT_GIT_LAB_URL }}
         echo ${{ vars.PROJECT_GIT_LAB_ID }}
+        echo ${{ secrets.DEPLOY_TRIGGER_TOKEN_GITLAB }}
+        echo ${{ secrets.DEPLOY_ACCESS_TOKEN_GITLAB }}
+
 
     - name: trigger Job
       uses: digital-blueprint/gitlab-pipeline-trigger-action@v1
