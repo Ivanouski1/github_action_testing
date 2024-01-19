@@ -22,3 +22,4 @@ jobs:
         access_token: ${{ secrets.DEPLOY_ACCESS_TOKEN_GITLAB }}
         id: ${{ vars.PROJECT_GIT_LAB_ID }}
         ref: 'master'
+        variables: '{"VAR1":"argos","VAR2":"trialgraph"}'
