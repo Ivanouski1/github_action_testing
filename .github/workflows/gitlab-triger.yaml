@@ -12,8 +12,10 @@ jobs:
         echo ${{ vars.PROJECT_GIT_LAB_ID }}
 
     - name: trigger Job
-      uses: appleboy/gitlab-ci-action@master
+      uses: digital-blueprint/gitlab-pipeline-trigger-action@v1
       with:
-        url: ${{ vars.PROJECT_GIT_LAB_URL }} 
-        token: ${{ secrets.GIT_LAB_TOKEN }}
-        project_id: ${{ vars.PROJECT_GIT_LAB_ID }}
+        host: ${{ vars.PROJECT_GIT_LAB_URL }} 
+        trigger_token: ${{ secrets.DEPLOY_TRIGGER_TOKEN_GITLAB }}
+        access_token: ${{ secrets.DEPLOY_ACCESS_TOKEN_GITLAB }}
+        id: ${{ vars.PROJECT_GIT_LAB_ID }}
+        ref: 'master'
