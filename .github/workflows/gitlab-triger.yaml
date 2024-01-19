@@ -8,11 +8,12 @@ jobs:
 
     - name: ls public repo
       run: |
-        env
+        echo ${{ vars.PROJECT_GIT_LAB_URL }}
+        echo ${{ vars.PROJECT_GIT_LAB_ID }}
 
     - name: trigger Job
       uses: appleboy/gitlab-ci-action@master
       with:
-        url: "https://gitlab.linnovate.net" 
+        url: ${{ vars.PROJECT_GIT_LAB_URL }} 
         token: ${{ secrets.GIT_LAB_TOKEN }}
-        project_id: 2902 
+        project_id: ${{ vars.PROJECT_GIT_LAB_ID }}
