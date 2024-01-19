@@ -13,6 +13,6 @@ jobs:
     - name: trigger Job
       uses: appleboy/gitlab-ci-action@master
       with:
-        url: "${{ env.PROJECT_GIT_LAB_URL }}" 
+        url: "https://gitlab.linnovate.net" 
         token: ${{ secrets.GIT_LAB_TOKEN }}
-        project_id: ${{ env.PROJECT_GIT_LAB_ID }} 
+        project_id: 2902 
